@@ -3,20 +3,8 @@
 from collections import defaultdict
 
 from tornado.ioloop import IOLoop
-from tweetstream import TweetStream
-
 from tornado.web import RequestHandler, Application, asynchronous
-#from tornado.httpclient import AsyncHTTPClient
-#from tornado.websocket import WebSocketHandler
-import uuid
-
-try:
-    from settings import SETTINGS
-except ImportError:
-    # No local settings
-    SETTINGS = {}
-
-#SETTINGS.setdefault("redis_pub_channel", "tweetwatcher")
+from tweetstream import TweetStream
 
 PORT_NR = 9000
 
