@@ -29,6 +29,9 @@ class TwitProxy(object):
         self.ioloop.start()
 
     def start_http_server(self):
+        """ Creates instance ofg HttpServer listening to 
+        clients connections
+        """
         app = Application([
             (r"(.*)", PollHandler)
         ], debug=True)
@@ -52,17 +55,20 @@ class TwitProxy(object):
         self.STREAMS[path] = stream
 
     def subscribe_stream(self, stream_path, client):
-        # append client to the list of stream's subscribers
+        """ Appends client to the list of stream's subscribers
+        """
         self.CLIENTS[stream_path].append(client)
         self.ensure_stream(stream_path)
 
 class PollHandler(RequestHandler):
         @asynchronous
         def get(self, path):
+            """ Handles client connection. Subscribes user to requested stream
+            """
             TwitProxy.instance.subscribe_stream(self.request.uri, self)
 
         def write_message(self, message):
-            """ Write a response and close connection """
+            """ Writes message to the client."""
             self.write(message)
             self.flush()
 
