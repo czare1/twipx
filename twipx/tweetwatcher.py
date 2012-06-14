@@ -60,6 +60,7 @@ class TwitProxy(object):
         self.CLIENTS[stream_path].append(client)
         self.ensure_stream(stream_path)
 
+
 class PollHandler(RequestHandler):
         @asynchronous
         def get(self, path):
@@ -71,6 +72,7 @@ class PollHandler(RequestHandler):
             """ Writes message to the client."""
             self.write(message)
             self.flush()
+
 
 if __name__ == "__main__":
     TwitProxy()
